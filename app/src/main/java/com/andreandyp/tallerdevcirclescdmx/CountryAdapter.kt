@@ -9,13 +9,15 @@ import android.widget.TextView
 
 import com.andreandyp.tallerdevcirclescdmx.placeholder.PlaceholderContent.PlaceholderItem
 import com.andreandyp.tallerdevcirclescdmx.databinding.ItemCountryBinding
+import com.andreandyp.tallerdevcirclescdmx.domain.Country
+import com.andreandyp.tallerdevcirclescdmx.network.CountryNetwork
 
 /**
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].
  * TODO: Replace the implementation with code for your data type.
  */
 class CountryAdapter(
-    private val values: List<PlaceholderItem>
+    private val values: List<Country>
 ) : RecyclerView.Adapter<CountryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,8 +35,8 @@ class CountryAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
         holder.countryFlag.setImageResource(R.mipmap.ic_launcher)
-        holder.countryName.text = item.id
-        holder.capitalName.text = item.content
+        holder.countryName.text = item.name
+        holder.capitalName.text = item.capitalName
     }
 
     override fun getItemCount(): Int = values.size

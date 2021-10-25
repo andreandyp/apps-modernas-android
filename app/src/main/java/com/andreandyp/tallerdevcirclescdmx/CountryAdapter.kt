@@ -1,23 +1,18 @@
 package com.andreandyp.tallerdevcirclescdmx
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-
-import com.andreandyp.tallerdevcirclescdmx.placeholder.PlaceholderContent.PlaceholderItem
+import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
+import coil.load
 import com.andreandyp.tallerdevcirclescdmx.databinding.ItemCountryBinding
 import com.andreandyp.tallerdevcirclescdmx.domain.Country
-import com.andreandyp.tallerdevcirclescdmx.network.CountryNetwork
 
-/**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
- */
 class CountryAdapter(
-    private val values: List<Country>
+    private val imageLoader: ImageLoader,
+    var values: List<Country>,
 ) : RecyclerView.Adapter<CountryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,7 +29,10 @@ class CountryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.countryFlag.setImageResource(R.mipmap.ic_launcher)
+        holder.countryFlag.load(item.flag, imageLoader) {
+            placeholder(R.drawable.ic_baseline_cloud_download_24)
+            error(R.drawable.ic_baseline_cloud_off_24)
+        }
         holder.countryName.text = item.name
         holder.capitalName.text = item.capitalName
     }
